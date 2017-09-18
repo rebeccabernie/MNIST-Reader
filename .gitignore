@@ -1,3 +1,6 @@
+# Data folder - doesnt need to be pushed every time
+/data
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
