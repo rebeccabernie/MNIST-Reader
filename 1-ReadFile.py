@@ -7,7 +7,6 @@ import gzip
 
 def readLabelsFromFile(filename):
     # Using "with" for files limits the scope of variables within the block
-    print("Label Files")
     with gzip.open(filename, 'rb') as f:
         # Pointer at 0
         magic = f.read(4)
@@ -32,13 +31,11 @@ def readLabelsFromFile(filename):
         labels = [int.from_bytes(label, 'big') for label in labels]
     return labels
 
+print("Label Files")
 trainLabels = readLabelsFromFile('data/train-labels-idx1-ubyte.gz')
 testLabels = readLabelsFromFile('data/t10k-labels-idx1-ubyte.gz')
 
 def readImagesFromFile(filename):
-    # Using "with" for files limits the scope of variables within the block
-    print()
-    print("Image Files")
     with gzip.open(filename, 'rb') as f:
         magic = f.read(4)
         magic = int.from_bytes(magic, 'big')
@@ -68,5 +65,13 @@ def readImagesFromFile(filename):
             images.append(rows)
     return images
 
+print()
+print("Image Files")
 trainImages = readImagesFromFile('data/train-images-idx3-ubyte.gz')
 testImages = readImagesFromFile('data/t10k-images-idx3-ubyte.gz')
+
+# Should be a 2
+for row in trainImages[4999]:
+    for col in row:
+        print('.' if col<= 127 else '#', end='')
+    print()
