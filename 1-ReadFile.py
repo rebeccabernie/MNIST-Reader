@@ -4,6 +4,11 @@
 # Read gzip file adapted from https://stackoverflow.com/questions/12902540/read-from-a-gzip-file-in-python
 
 import gzip
+import PIL.image as pil
+import numpy as np
+
+# -----------------------------------------------------------------
+# Problem 1 - Read the Data Files
 
 def readLabelsFromFile(filename):
     # Using "with" for files limits the scope of variables within the block
@@ -11,7 +16,7 @@ def readLabelsFromFile(filename):
         # Pointer at 0
         magic = f.read(4)
         magic = int.from_bytes(magic, 'big')
-        print("(Magic: ", magic)
+        print("Magic: ", magic)
 
         # Pointer now at 3 (4th pos)
         numLabels = f.read(4)
@@ -70,8 +75,19 @@ print("Image Files")
 trainImages = readImagesFromFile('data/train-images-idx3-ubyte.gz')
 testImages = readImagesFromFile('data/t10k-images-idx3-ubyte.gz')
 
-# Should be a 2
+# -----------------------------------------------------------------------------------
+# Problem 2 - Output Image to the Console using .'s and #'s depending on pixel value.
+
 for row in trainImages[4999]:
     for col in row:
         print('.' if col<= 127 else '#', end='')
     print()
+
+
+# -----------------------------------------------------------------------------------
+# Problem 3 - Output image files as PNGs.
+
+img = pil.fromarray(np.array(trainImages[4999]))
+img = img.convert('RGB')
+img.show()
+img.save('2.png')
