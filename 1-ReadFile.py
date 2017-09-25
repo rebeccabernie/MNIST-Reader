@@ -7,14 +7,27 @@ import gzip
 limit = 50 # Limiting output for now
 index = 9
 
-f = gzip.open('data/t10k-labels-idx1-ubyte.gz', 'rb')
+# Using "with" for files limits the scope of variables within the block
+with gzip.open('data/t10k-labels-idx1-ubyte.gz', 'rb') as f:
+    # Pointer at 0
+    magic = f.read(4)
+    magic = int.from_bytes(magic, 'big')
+    print("Magic: ", magic)
 
-magic = f.read(4)
-print("Magic: " + str(int.from_bytes(magic, 'big')))
+    # Pointer now at 3 (4th pos)
+    numLabels = f.read(4)
+    numLabels = int.from_bytes(numLabels, 'big')
+    print("Num of labels: ", numLabels)
 
-numLabels = f.read(4)
-print("Num of labels: " + str(int.from_bytes(numLabels, 'big')))
-    
-# \x00\x00\x08\x03 (first item) -> 00000000 00000000 00001000 00000011 in binary
+    # Inefficient Way
+    # labels = []
 
+    # for i in range(numLabels):
+    #     labels.append(f.read(1))
+
+    # Proper Way
+    # labels = [int.from_bytes(f.read(1)) for i in range(numLabels)]
+    # --------- OR, tidier ---------
+    labels = [f.read(1) for i in range(numLabels)]
+    labels = [int.from_bytes(label, 'big') for label in labels]
 
