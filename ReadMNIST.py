@@ -90,9 +90,10 @@ testImages = readImagesFromFile('data/t10k-images-idx3-ubyte.gz')
 # -----------------------------------------------------------------------------------
 # Problem 2 - Output Image to the Console using .'s and #'s depending on pixel value.
 
-for row in trainImages[4999]: # For each row in 4999th image (this image contains the number "2")
+for row in trainImages[2]: # For each row in 3rd image (looks like a 4?)
     for col in row: # For each column in each row
-        print('.' if col<= 127 else '#', end='') # Output either . or #, end result should look somewhat like a 2
+        print('. ' if col<= 127 else '# ', end='') # Output either . or #, end result should look somewhat like a 4
+        # Spacing after . and # make output more accurate
     print() # New line for a new row
 
 
