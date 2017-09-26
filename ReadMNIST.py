@@ -4,8 +4,8 @@
 # Read gzip file adapted from https://stackoverflow.com/questions/12902540/read-from-a-gzip-file-in-python
 
 import gzip
-import PIL.image as pil
-import numpy as np
+from PIL import Image
+import numpy
 
 # -----------------------------------------------------------------
 # Problem 1 - Read the Data Files
@@ -77,17 +77,23 @@ testImages = readImagesFromFile('data/t10k-images-idx3-ubyte.gz')
 
 # -----------------------------------------------------------------------------------
 # Problem 2 - Output Image to the Console using .'s and #'s depending on pixel value.
-
-for row in trainImages[4999]:
-    for col in row:
-        print('.' if col<= 127 else '#', end='')
-    print()
+print("Output image to console? Y/N: ")
+ans = input()
+if ans.lower() == 'y':
+    for row in trainImages[4999]:
+        for col in row:
+            print('.' if col<= 127 else '#', end='')
+        print()
+else:
+    pass
 
 
 # -----------------------------------------------------------------------------------
 # Problem 3 - Output image files as PNGs.
-
-img = pil.fromarray(np.array(trainImages[4999]))
-img = img.convert('RGB')
-img.show()
-img.save('2.png')
+print("Output images as PNG files? Y/N: ")
+ans = input()
+if ans.lower == 'y':
+    img = Image.fromarray(numpy.array(trainImages[4999]))
+    img = img.convert('RGB')
+    img.show()
+    img.save('2.png')
