@@ -5,7 +5,7 @@
 
 import gzip
 from PIL import Image
-#import numpy as np
+import numpy as np
 
 # Numpy not giving errors here but not running correctly - see
 # https://github.com/numpy/numpy/issues/9272 and 
@@ -99,12 +99,12 @@ for row in trainImages[2]: # For each row in 3rd image (looks like a 4?)
 
 # -----------------------------------------------------------------------------------
 # Problem 3 - Output image files as PNGs.
-# print("Output images as PNG files? Y/N: ")
-# ans = input()
-# if ans.lower == 'y':
-#     img = Image.fromarray(np.array(trainImages[4999]))
-#     img = img.convert('RGB')
-#     img.show()
-#     img.save('2.png')
-# else:
-#     # do nothing
+print("Output images as PNG files? Y/N: ")
+ans = input()
+if ans.lower == 'y':
+    img = Image.fromarray(np.array(trainImages[4999]))
+    img = img.convert('RGB')
+    img.show()
+    img.save('2.png')
+else:
+    print()
