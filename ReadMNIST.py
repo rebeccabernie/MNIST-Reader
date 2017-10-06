@@ -8,12 +8,6 @@ from PIL import Image
 import numpy as np
 import os
 
-# Numpy not giving errors here but not running correctly - see
-# https://github.com/numpy/numpy/issues/9272 and 
-# https://github.com/ContinuumIO/anaconda-issues/issues/1508
-# Have tried uninstalling & reinstalling, updating python & other packages, will keep trying / maybe try a numpy alternative
-
-
 # -----------------------------------------------------------------
 # Problem 1 - Read the Data Files
 
@@ -90,24 +84,30 @@ testImages = readImagesFromFile('data/t10k-images-idx3-ubyte.gz')
 
 # -----------------------------------------------------------------------------------
 # Problem 2 - Output Image to the Console using .'s and #'s depending on pixel value.
-
+'''
 for row in trainImages[2]: # For each row in 3rd image (looks like a 4?)
     for col in row: # For each column in each row
         print('. ' if col<= 127 else '# ', end='') # Output either . or #, end result should look somewhat like a 4
         # Spacing after . and # make output more accurate
     print() # New line for a new row
-
+'''
 
 # -----------------------------------------------------------------------------------
 # Problem 3 - Output image files as PNGs.
 
 # Make directory if not exists adapted from https://stackoverflow.com/questions/273192/how-can-i-create-a-directory-if-it-does-not-exist
-file_path = "/pngs"
-directory = os.path.dirname(file_path)
+filepath = "PNGs/"
+directory = os.path.dirname(filepath)
 
 if not os.path.exists(directory):
     os.makedirs(directory)
 
-img = Image.fromarray(np.array(trainImages[4999]))
-img = img.convert('RGB')
-img.save('2.png')
+t, i, l = 'train', 4999, 2
+name = filepath + t + '-' + str(i) + '-' + str(l) + '.png'
+print ('saving ' + name + '...')
+
+img = Image.fromarray(np.array(trainImages[i])*255)
+img.convert('RGB')
+img.save(name, 'PNG')
+
+print (name + ' saved')
