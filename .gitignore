@@ -1,5 +1,6 @@
 # Data folder - doesnt need to be pushed every time
 /data
+/PNGs
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

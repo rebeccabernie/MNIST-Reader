@@ -102,12 +102,16 @@ directory = os.path.dirname(filepath)
 if not os.path.exists(directory):
     os.makedirs(directory)
 
-t, i, l = 'train', 4999, 2
-name = filepath + t + '-' + str(i) + '-' + str(l) + '.png'
-print ('saving ' + name + '...')
+# Using test files for now, less to work with
+# Index loop adapted from https://stackoverflow.com/questions/522563/accessing-the-index-in-python-for-loops
+for index, item in enumerate(testImages):
+    t = 'test'
+    label = testLabels[index]
+    name = filepath + t + '-' + str(index) + '-' + str(label) + '.png'
+    print ('saving ' + name + '...')
 
-img = Image.fromarray(np.array(trainImages[i])*255)
-img.convert('RGB')
-img.save(name, 'PNG')
+    img = Image.fromarray(np.array(testImages[index])*255)  # Image was saving all black, multiply by 255 to solve - adapted from https://stackoverflow.com/questions/28176005/pil-images-converted-to-rgb-getting-saved-as-plain-black-images-python
+    img.convert('RGB')
+    img.save(name, 'PNG')
 
-print (name + ' saved')
+    print (name + ' saved')
