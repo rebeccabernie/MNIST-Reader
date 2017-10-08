@@ -105,13 +105,15 @@ if not os.path.exists(directory):
 # Using test files for now, less to work with
 # Index loop adapted from https://stackoverflow.com/questions/522563/accessing-the-index-in-python-for-loops
 for index, item in enumerate(testImages):
-    t = 'test'
     label = testLabels[index]
-    name = filepath + t + '-' + str(index) + '-' + str(label) + '.png'
+
+    # Leading 0s for names (0001, 0002 etc) adapted from https://stackoverflow.com/questions/134934/display-number-with-leading-zeros
+    imfile = filepath + 'test-' + '-' + str(index).zfill(4) + '-' + str(label) + '.png'
+    name = 'test-' + str(index).zfill(4) + '-' + str(label) + '.png'
     print ('saving ' + name + '...')
 
     img = Image.fromarray(np.array(testImages[index])*255)  # Image was saving all black, multiply by 255 to solve - adapted from https://stackoverflow.com/questions/28176005/pil-images-converted-to-rgb-getting-saved-as-plain-black-images-python
     img.convert('RGB')
-    img.save(name, 'PNG')
+    img.save(imfile, 'PNG')
 
     print (name + ' saved')
