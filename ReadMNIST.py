@@ -97,8 +97,6 @@ for row in trainImages[2]: # For each row in 3rd image (looks like a 4?)
 
 run = input('Save files as PNGs? y/n ')
 
-limit = 1999 # Limiting image saving because would just take too long to save 70,000 images. Comment out "if index == limit: break" statements in Training/Test sections to save all 70,000 images.
-
 if run.lower() == 'y':
     # Make directory if not exists adapted from https://stackoverflow.com/questions/273192/how-can-i-create-a-directory-if-it-does-not-exist
     filepath = "PNGs/"
@@ -107,58 +105,65 @@ if run.lower() == 'y':
     if not os.path.exists(directory):
         os.makedirs(directory)
 
-    # Test Images -------------------------------------------------------------------
+    saveImages(testImages)
+    saveImages(trainImages)
 
-    filepath = "PNGs/TestImages/"
-    directory = os.path.dirname(filepath)
+def saveImages(imgtype):
+    limit = 1999 # Limiting image saving because would just take too long to save 70,000 images. Comment out "if index == limit: break" statements in Training/Test sections to save all 70,000 images.
 
-    if not os.path.exists(directory):
-        os.makedirs(directory)
+        # Test Images
 
-    print('Saving Test images...')
-    # Index loop adapted from https://stackoverflow.com/questions/522563/accessing-the-index-in-python-for-loops
-    for index, item in enumerate(testImages):
-        label = testLabels[index]
+        filepath = "PNGs/TestImages/"
+        directory = os.path.dirname(filepath)
 
-        # Leading 0s for names (0001, 0002 etc) adapted from https://stackoverflow.com/questions/134934/display-number-with-leading-zeros
-        imfile = filepath + 'test-' + str(index).zfill(5) + '-' + str(label) + '.png'
-        name = 'test-' + str(index).zfill(5) + '-' + str(label) + '.png'
-        print ('saving ' + name + '...')
+        if not os.path.exists(directory):
+            os.makedirs(directory)
 
-        img = Image.fromarray(np.array(testImages[index])*255)  # Image was saving all black, multiply by 255 to solve - adapted from https://stackoverflow.com/questions/28176005/pil-images-converted-to-rgb-getting-saved-as-plain-black-images-python
-        img.convert('RGB')
-        img.save(imfile, 'PNG')
+        print('Saving Test images...')
 
-        print (name + ' saved')
+        # Index loop adapted from https://stackoverflow.com/questions/522563/accessing-the-index-in-python-for-loops
+        for index, item in enumerate(testImages):
+            label = testLabels[index]
 
-        if index == limit:
-            break
+            # Leading 0s for names (0001, 0002 etc) adapted from https://stackoverflow.com/questions/134934/display-number-with-leading-zeros
+            imfile = filepath + 'test-' + str(index).zfill(5) + '-' + str(label) + '.png'
+            name = 'test-' + str(index).zfill(5) + '-' + str(label) + '.png'
+            print ('saving ' + name + '...')
 
-    print('Test images saved.')
+            img = Image.fromarray(np.array(testImages[index])*255)  # Image was saving all black, multiply by 255 to solve - adapted from https://stackoverflow.com/questions/28176005/pil-images-converted-to-rgb-getting-saved-as-plain-black-images-python
+            img.convert('RGB')
+            img.save(imfile, 'PNG')
 
-    # Training images -------------------------------------------------------------------
+            print (name + ' saved')
 
-    filepath = "PNGs/TrainingImages/"
-    directory = os.path.dirname(filepath)
+            if index == limit:
+                break
 
-    if not os.path.exists(directory):
-        os.makedirs(directory)
+        print('Test images saved.')
 
-    print('Saving Training images...')
-    for index, item in enumerate(trainImages):
-        label = trainLabels[index]
+        # Training images
 
-        imfile = filepath + 'train-' + str(index).zfill(5) + '-' + str(label) + '.png'
-        name = 'train-' + str(index).zfill(5) + '-' + str(label) + '.png'
-        print ('saving ' + name + '...')
+        filepath = "PNGs/TrainingImages/"
+        directory = os.path.dirname(filepath)
 
-        img = Image.fromarray(np.array(trainImages[index])*255) 
-        img.convert('RGB')
-        img.save(imfile, 'PNG')
+        if not os.path.exists(directory):
+            os.makedirs(directory)
 
-        print (name + ' saved')
+        print('Saving Training images...')
+        for index, item in enumerate(trainImages):
+            label = trainLabels[index]
 
-        if index == limit:
-            break
+            imfile = filepath + 'train-' + str(index).zfill(5) + '-' + str(label) + '.png'
+            name = 'train-' + str(index).zfill(5) + '-' + str(label) + '.png'
+            print ('saving ' + name + '...')
 
-    print('Training images saved.')
+            img = Image.fromarray(np.array(trainImages[index])*255) 
+            img.convert('RGB')
+            img.save(imfile, 'PNG')
+
+            print (name + ' saved')
+
+            if index == limit:
+                break
+
+        print('Training images saved.')
