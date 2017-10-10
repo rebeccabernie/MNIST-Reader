@@ -23,3 +23,8 @@ The output won't be exactly like the original image since this method only deals
 
 <img src="https://user-images.githubusercontent.com/14957616/30874278-bf308f1c-a2e7-11e7-98f4-3ec92e0cfe26.PNG " width="200" height="200">
 
+** 3. Output the Images as PNGs**  
+The program asks the user if they want to output the images in PNG format, if the user enters 'y' the program will continue. The program works by saving test images first, then training images - test images get saved to the TestImages folder and training images to the TrainImages folder, which are created by the program if they don't already exist.  
+
+See example layout below: <img src="https://user-images.githubusercontent.com/14957616/31395086-d4e8b0f0-add7-11e7-8c88-d608340d62d8.png">
+
