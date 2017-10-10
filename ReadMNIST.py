@@ -95,6 +95,55 @@ for row in trainImages[2]: # For each row in 3rd image (looks like a 4?)
 # -----------------------------------------------------------------------------------
 # Problem 3 - Output image files as PNGs.
 
+def saveImages(imgType, imNum):
+
+    limit = 1999 # Limiting image saving because would just take too long to save 70,000 images. Comment out "if index == limit: break" statements in Training/Test sections to save all 70,000 images.
+
+    # if imNum is 0, use test image details
+    if imNum == 0:
+        imName = 'test'
+        labels = testLabels
+        images = testImages
+        # Create directory for images if not already exists
+        filepath = "PNGs/TestImages/"
+        directory = os.path.dirname(filepath)
+
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
+    # If imNum is 1, use training image details
+    if imNum == 1:
+        imName = 'train'
+        labels = trainLabels
+        images = trainImages
+        filepath = "PNGs/TrainImages/"
+        directory = os.path.dirname(filepath)
+
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
+    print('Saving ' + str(imName) + ' images...')
+
+    # Index loop adapted from https://stackoverflow.com/questions/522563/accessing-the-index-in-python-for-loops
+    for index, item in enumerate(imgType):
+        label = labels[index]
+
+        # Leading 0s for names (0001, 0002 etc) adapted from https://stackoverflow.com/questions/134934/display-number-with-leading-zeros
+        imfile = filepath + imName + '-' + str(index).zfill(5) + '-' + str(label) + '.png'
+        name = imName + '-' + str(index).zfill(5) + '-' + str(label) + '.png'
+        print ('saving ' + name + '...')
+
+        img = Image.fromarray(np.array(images[index])*255)  # Image was saving all black, multiply by 255 to solve - adapted from https://stackoverflow.com/questions/28176005/pil-images-converted-to-rgb-getting-saved-as-plain-black-images-python
+        img.convert('RGB')
+        img.save(imfile, 'PNG')
+
+        print (name + ' saved')
+
+        if index == limit:
+            break
+
+    print(str(imName + ' images saved.'))
+
 run = input('Save files as PNGs? y/n ')
 
 if run.lower() == 'y':
@@ -105,65 +154,5 @@ if run.lower() == 'y':
     if not os.path.exists(directory):
         os.makedirs(directory)
 
-    saveImages(testImages)
-    saveImages(trainImages)
-
-def saveImages(imgtype):
-    limit = 1999 # Limiting image saving because would just take too long to save 70,000 images. Comment out "if index == limit: break" statements in Training/Test sections to save all 70,000 images.
-
-        # Test Images
-
-        filepath = "PNGs/TestImages/"
-        directory = os.path.dirname(filepath)
-
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-
-        print('Saving Test images...')
-
-        # Index loop adapted from https://stackoverflow.com/questions/522563/accessing-the-index-in-python-for-loops
-        for index, item in enumerate(testImages):
-            label = testLabels[index]
-
-            # Leading 0s for names (0001, 0002 etc) adapted from https://stackoverflow.com/questions/134934/display-number-with-leading-zeros
-            imfile = filepath + 'test-' + str(index).zfill(5) + '-' + str(label) + '.png'
-            name = 'test-' + str(index).zfill(5) + '-' + str(label) + '.png'
-            print ('saving ' + name + '...')
-
-            img = Image.fromarray(np.array(testImages[index])*255)  # Image was saving all black, multiply by 255 to solve - adapted from https://stackoverflow.com/questions/28176005/pil-images-converted-to-rgb-getting-saved-as-plain-black-images-python
-            img.convert('RGB')
-            img.save(imfile, 'PNG')
-
-            print (name + ' saved')
-
-            if index == limit:
-                break
-
-        print('Test images saved.')
-
-        # Training images
-
-        filepath = "PNGs/TrainingImages/"
-        directory = os.path.dirname(filepath)
-
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-
-        print('Saving Training images...')
-        for index, item in enumerate(trainImages):
-            label = trainLabels[index]
-
-            imfile = filepath + 'train-' + str(index).zfill(5) + '-' + str(label) + '.png'
-            name = 'train-' + str(index).zfill(5) + '-' + str(label) + '.png'
-            print ('saving ' + name + '...')
-
-            img = Image.fromarray(np.array(trainImages[index])*255) 
-            img.convert('RGB')
-            img.save(imfile, 'PNG')
-
-            print (name + ' saved')
-
-            if index == limit:
-                break
-
-        print('Training images saved.')
+    saveImages(testImages, 0)
+    saveImages(trainImages, 1)
