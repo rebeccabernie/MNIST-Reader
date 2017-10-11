@@ -97,15 +97,12 @@ for row in trainImages[2]: # For each row in 3rd image (looks like a 4?)
 
 def saveImages(imgType, imNum):
 
-    limit = 1999 # Limiting image saving because would just take too long to save 70,000 images. Comment out "if index == limit: break" statements in Training/Test sections to save all 70,000 images.
+    limit = 1999 # Limiting image saving because would just take too long to save 70,000 images. Comment out "if index == limit: break" statements in to save all 70,000 images.
 
     # if imNum is 0, use test image details
     if imNum == 0:
-        imName = 'test'
-        labels = testLabels
-        images = testImages
+        imName, labels, images, filepath = 'test', testLabels, testImages,"PNGs/TestImages/"
         # Create directory for images if not already exists
-        filepath = "PNGs/TestImages/"
         directory = os.path.dirname(filepath)
 
         if not os.path.exists(directory):
@@ -113,10 +110,7 @@ def saveImages(imgType, imNum):
 
     # If imNum is 1, use training image details
     if imNum == 1:
-        imName = 'train'
-        labels = trainLabels
-        images = trainImages
-        filepath = "PNGs/TrainImages/"
+        imName, labels, images, filepath = 'train', trainLabels, trainImages, "PNGs/TrainImages/"
         directory = os.path.dirname(filepath)
 
         if not os.path.exists(directory):
@@ -140,12 +134,12 @@ def saveImages(imgType, imNum):
         print (name + ' saved')
 
         if index == limit:
-            break
+            break # Comment out to save all 70,000 images
 
     print(str(imName + ' images saved.'))
 
-run = input('Save files as PNGs? y/n ')
 
+run = input('Save files as PNGs? y/n ')
 if run.lower() == 'y':
     # Make directory if not exists adapted from https://stackoverflow.com/questions/273192/how-can-i-create-a-directory-if-it-does-not-exist
     filepath = "PNGs/"
