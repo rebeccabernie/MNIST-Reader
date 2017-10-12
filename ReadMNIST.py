@@ -110,7 +110,7 @@ def saveImages(imgType, imNum):
 
     # If imNum is 1, use training image details
     if imNum == 1:
-        imName, labels, images, filepath = 'train', trainLabels, trainImages, "PNGs/TrainImages/"
+        imName, labels, images, filepath = 'train', trainLabels, trainImages, "PNGs/TrainingImages/"
         directory = os.path.dirname(filepath)
 
         if not os.path.exists(directory):
